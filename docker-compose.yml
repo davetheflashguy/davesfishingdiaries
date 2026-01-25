@@ -1,3 +1,5 @@
+version: "3.9"
+
 services:
   db:
     image: postgres:16
@@ -23,6 +25,12 @@ services:
       - "8000:8000"
     volumes:
       - ./backend:/app
+      - ./data:/data   # <-- Excel lives here
+    command: >
+      sh -c "
+      python scripts/ingest_catches.py &&
+      uvicorn main:app --host 0.0.0.0 --port 8000
+      "
 
   ui:
     build: ./ui
