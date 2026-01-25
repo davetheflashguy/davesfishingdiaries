@@ -136,6 +136,49 @@ The Angular dev server will run on http://localhost:4200
 
 The database is automatically initialized when the PostgreSQL container starts. SQL scripts are located in the `db/` folder and are executed in numeric order.
 
+## Data Ingestion
+
+The backend service automatically ingests fishing catch data from an Excel file when it starts:
+
+### Process
+
+1. **Trigger**: The ingestion script (`backend/scripts/ingest_catches.py`) runs automatically when the backend container starts
+2. **Source**: Reads catch data from `/data/catches.xlsx`
+3. **Processing**: 
+   - Reads the Excel file using pandas
+   - Normalizes column names to lowercase
+   - Handles special values:
+     - "Private" location strings are converted to `NULL` for privacy
+     - NaN values are preserved as-is
+   - Inserts data into the `catches` table using SQLAlchemy
+   - Skips duplicate records (uses `ON CONFLICT DO NOTHING`)
+
+### Data Format
+
+The Excel file should have the following columns:
+- `species` - Fish species
+- `length_inches` - Fish length in inches
+- `weight_lbs` - Weight in pounds (can be in format like "1lb 2oz" or "NaN")
+- `latitude` - Latitude coordinate (or "Private")
+- `longitude` - Longitude coordinate (or "Private")
+- `date_caught` - Date of catch
+- `time_of_day` - Time of catch
+- `lure` - Type of lure used
+- `weather` - Weather conditions
+- `notes` - Additional notes
+- `photo_url` - URL to catch photo
+
+### Execution
+
+To manually run the ingestion:
+
+```bash
+cd backend
+python scripts/ingest_catches.py
+```
+
+**Note**: The script will automatically wait for the database to be ready before attempting to ingest data.
+
 ## API Documentation
 
 Once the backend is running, interactive API documentation is available at:
