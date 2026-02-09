@@ -1,0 +1,18 @@
+.catch-filters {
+    max-width: 1600px;
+    margin: 0 auto;
+    .inline-form-container {
+        display: flex;
+        gap: 1rem; /* Adjust the space between elements as needed */
+        align-items: center; /* Aligns items vertically in the center */
+    }
+
+    /* Optional: Adjust form field display if necessary, depending on your Angular Material version and theme */
+    .inline-form-container mat-form-field, mat-button {
+        display: inline-block;
+        vertical-align: middle;
+    }
+    .filter-title {
+        margin-left: 6px;
+    }
+}

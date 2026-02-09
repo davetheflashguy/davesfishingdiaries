@@ -1,0 +1,13 @@
+.highlight-wrapper {
+  display: flex;
+  justify-content: center;
+  align-items: start;
+  .hero-card {
+    max-width: 1600px;
+    box-shadow: none !important;
+    border: none !important;
+    .hero-image  {
+        border-radius: 15px;
+    }
+  }
+}

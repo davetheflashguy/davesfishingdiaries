@@ -1,0 +1,93 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width,initial-scale=1">
+  <title>Catches Wireframe</title>
+  <link rel="stylesheet" href="./styles.css">
+</head>
+<body>
+  <header class="topbar">
+    <h1>Dave's Fishing Diaries — Catches</h1>
+    <div class="top-actions">
+      <button class="primary">Add Catch</button>
+      <input class="search" placeholder="Search species, notes...">
+    </div>
+  </header>
+
+  <div class="container">
+    <aside class="filters">
+      <h2>Filters</h2>
+      <label>Species</label>
+      <select>
+        <option>All</option>
+        <option>Striped Bass</option>
+        <option>Bluefish</option>
+        <option>Flounder</option>
+      </select>
+
+      <label>Location</label>
+      <input placeholder="Enter town or 'Private'">
+
+      <label>Date range</label>
+      <div class="date-row">
+        <input type="date">
+        <input type="date">
+      </div>
+
+      <label>Weight</label>
+      <div class="range-row">
+        <input placeholder="min (lbs)">
+        <input placeholder="max (lbs)">
+      </div>
+
+      <label>Time of day</label>
+      <select>
+        <option>Any</option>
+        <option>Morning</option>
+        <option>Afternoon</option>
+        <option>Evening</option>
+      </select>
+
+      <button class="apply">Apply Filters</button>
+      <button class="clear">Clear</button>
+    </aside>
+
+    <main class="content">
+      <section class="summary">
+        <div>Showing <strong>24</strong> catches</div>
+        <div>Map placeholder</div>
+      </section>
+
+      <section class="results">
+        <!-- Example card rows -->
+        <article class="card">
+          <img src="https://via.placeholder.com/120x80" alt="photo">
+          <div class="card-body">
+            <h3>Striped Bass — 28"</h3>
+            <p><strong>Weight:</strong> 6lb 8oz • <strong>Date:</strong> 2024-07-03 • <strong>Location:</strong> Private</p>
+            <p class="notes">Lure: Soft plastic • Notes: Strong fight, released.</p>
+          </div>
+        </article>
+
+        <article class="card">
+          <img src="https://via.placeholder.com/120x80" alt="photo">
+          <div class="card-body">
+            <h3>Bluefish — 22"</h3>
+            <p><strong>Weight:</strong> 3lb • <strong>Date:</strong> 2024-06-28 • <strong>Location:</strong> Sandy Hook</p>
+            <p class="notes">Lure: Topwater • Notes: Chased bait school.</p>
+          </div>
+        </article>
+
+        <!-- end sample cards -->
+      </section>
+    </main>
+
+    <aside class="map">
+      <div class="map-box">Interactive map placeholder</div>
+    </aside>
+  </div>
+
+  <footer class="footer">© Dave's Fishing Diaries</footer>
+</body>
+</html>

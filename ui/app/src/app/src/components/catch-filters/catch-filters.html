@@ -1,0 +1,54 @@
+<section class="catch-filters">
+<mat-accordion>
+  <mat-expansion-panel hideToggle>
+    <mat-expansion-panel-header>
+      <mat-panel-title> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter"></mat-icon><span class="filter-title">Filter Recent Catches</span></mat-panel-title>
+    </mat-expansion-panel-header>
+        <form [formGroup]="filterForm" (ngSubmit)="onSubmit()"  class="inline-form-container">
+            <mat-form-field appearance="outline">
+                <mat-label>Species</mat-label>
+                <mat-select>
+                    @for (species of speciesList; track species) {
+                        <mat-option [value]="species.label">{{species.label}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Year</mat-label>
+                <mat-select formControlName="year">
+                    @for (year of yearList; track year) {
+                        <mat-option [value]="year.label">{{year.label}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Water Body</mat-label>
+                <mat-select formControlName="waterBody">
+                    @for (waterBody of waterBodyList; track waterBody) {
+                        <mat-option [value]="waterBody.label">{{waterBody.label}}</mat-option>
+                    }
+                </mat-select>
+            </mat-form-field>
+
+            <mat-form-field appearance="outline">
+                <mat-label>Conditions</mat-label>
+                <mat-select formControlName="conditions">
+
+                    @for (condition of ['Clear', 'Cloudy', 'Rainy']; track condition) {
+                        <mat-option [value]="condition">{{condition}}</mat-option>
+                    }
+
+                </mat-select>
+            </mat-form-field>
+
+
+            <button mat-raised-button color="primary" type="submit" style="margin-top: -20px;">
+                Filter Catches
+            </button>
+        </form>
+  </mat-expansion-panel>
+</mat-accordion>
+</section>
+
