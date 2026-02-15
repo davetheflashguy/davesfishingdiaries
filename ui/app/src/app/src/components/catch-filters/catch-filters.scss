@@ -1,6 +1,8 @@
 .catch-filters {
     max-width: 1600px;
     margin: 0 auto;
+    padding-left: 22px;
+    padding-right: 22px;
     .inline-form-container {
         display: flex;
         gap: 1rem; /* Adjust the space between elements as needed */
@@ -14,5 +16,21 @@
     }
     .filter-title {
         margin-left: 6px;
+    }
+
+    /* Mobile responsiveness */
+    @media (max-width: 768px) {
+        .inline-form-container {
+            flex-direction: column;
+            align-items: stretch;
+        }
+
+        .inline-form-container mat-form-field {
+            width: 100%;
+        }
+
+        .inline-form-container button {
+            width: 100%;
+        }
     }
 }

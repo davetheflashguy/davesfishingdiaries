@@ -7,9 +7,10 @@
         <form [formGroup]="filterForm" (ngSubmit)="onSubmit()"  class="inline-form-container">
             <mat-form-field appearance="outline">
                 <mat-label>Species</mat-label>
-                <mat-select>
-                    @for (species of speciesList; track species) {
-                        <mat-option [value]="species.label">{{species.label}}</mat-option>
+                <mat-select formControlName="species">
+                    <mat-option value="">All Species</mat-option>
+                    @for (species of speciesList(); track species) {
+                        <mat-option [value]="species">{{species}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>
@@ -17,8 +18,9 @@
             <mat-form-field appearance="outline">
                 <mat-label>Year</mat-label>
                 <mat-select formControlName="year">
-                    @for (year of yearList; track year) {
-                        <mat-option [value]="year.label">{{year.label}}</mat-option>
+                    <mat-option value="">All Years</mat-option>
+                    @for (year of yearList(); track year) {
+                        <mat-option [value]="year">{{year}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>
@@ -26,29 +28,21 @@
             <mat-form-field appearance="outline">
                 <mat-label>Water Body</mat-label>
                 <mat-select formControlName="waterBody">
-                    @for (waterBody of waterBodyList; track waterBody) {
-                        <mat-option [value]="waterBody.label">{{waterBody.label}}</mat-option>
+                    <mat-option value="">All Water Bodies</mat-option>
+                    @for (waterBody of waterBodyList(); track waterBody) {
+                        <mat-option [value]="waterBody">{{waterBody}}</mat-option>
                     }
                 </mat-select>
             </mat-form-field>
-
-            <mat-form-field appearance="outline">
-                <mat-label>Conditions</mat-label>
-                <mat-select formControlName="conditions">
-
-                    @for (condition of ['Clear', 'Cloudy', 'Rainy']; track condition) {
-                        <mat-option [value]="condition">{{condition}}</mat-option>
-                    }
-
-                </mat-select>
-            </mat-form-field>
-
 
             <button mat-raised-button color="primary" type="submit" style="margin-top: -20px;">
                 Filter Catches
             </button>
+            <button mat-stroked-button type="button" (click)="clearFilters()" style="margin-top: -20px; margin-left: 8px;">
+                Clear Filters
+            </button>
         </form>
-  </mat-expansion-panel>
+    </mat-expansion-panel>
 </mat-accordion>
 </section>
 

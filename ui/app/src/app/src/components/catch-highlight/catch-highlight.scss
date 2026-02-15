@@ -4,8 +4,11 @@
   align-items: start;
   .hero-card {
     max-width: 1600px;
+    min-width: 500px;
     box-shadow: none !important;
     border: none !important;
+      padding-left: 22px;
+  padding-right: 22px;
     .hero-image  {
         border-radius: 15px;
     }

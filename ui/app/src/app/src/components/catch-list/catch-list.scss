@@ -1,0 +1,19 @@
+.catch-list {
+    max-width: 1600px;
+    margin-left: auto;
+    margin-right: auto;
+    margin-top: 20px;
+}
+.card-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(475px, 1fr));
+  gap: 32px;
+    padding-left: 22px;
+  padding-right: 22px;
+}
+
+mat-card img {
+  object-fit: cover;
+  height: 450px;
+  width: 100%;
+}

@@ -1,1 +1,25 @@
-<p>catch-list works!</p>
+<section class="catch-list">
+@if(data$) {
+    <div class="card-container">
+        @for(item of data$ | async; track item) {
+            <mat-card class="catch-card">
+                <img mat-card-image src="{{item.photo_url}}"  alt="{{item.notes}}" class="card-image">
+                    <mat-card-content>
+                        <h3>{{item.species}}</h3>
+                        @if(item.weight_lbs !== 'NaN') {
+                            <p>{{item.weight_lbs}} lbs</p>
+                        }
+                        @if(item.length_inches !== 'NaN') {
+                            <p>{{item.length_inches}} inches</p>
+                        }
+                        @if(item.notes !== 'NaN') {
+                            <p>{{item.notes}}</p>
+                        }
+                    </mat-card-content>
+            </mat-card>
+        }
+    </div>
+}@else {
+    <mat-spinner></mat-spinner>
+}
+</section>

@@ -1,8 +1,12 @@
 <div class="toolbar-wrapper">
   <mat-toolbar>
-    <button matIconButton>
+    <button matIconButton [matMenuTriggerFor]="appMenu">
       <mat-icon>menu</mat-icon>
     </button>
+        <mat-menu #appMenu="matMenu">
+      <button mat-menu-item routerLink="/">Home</button>
+       <button mat-menu-item routerLink="/getting-started">Get Started Fishing</button>
+    </mat-menu>
     <span>DavesFishingDiaries</span>
     <span class="spacer"></span>
     <button matIconButton>

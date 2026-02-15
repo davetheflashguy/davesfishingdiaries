@@ -1,75 +1,132 @@
-import { ChangeDetectionStrategy, Component, signal} from '@angular/core';
-import { ReactiveFormsModule } from '@angular/forms';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter, signal} from '@angular/core';
+import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
 import { MatLabel, MatFormField } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
-import { FormBuilder, Validators } from '@angular/forms';
 import { MatSelectModule} from '@angular/material/select';
 import { MatButtonModule } from '@angular/material/button';
-
-interface Species {
-  label: string;
-}
-
-interface Year {
-  label: string;
-}
-
-interface WaterBody {
-  label: string;
-}
+import { CommonModule } from '@angular/common';
+import { Router, ActivatedRoute } from '@angular/router';
+import { CatchListsService, CatchFilter } from '../catch-list/catch-lists.service';
 
 @Component({
   selector: 'app-catch-filters',
-  imports: [MatExpansionModule, ReactiveFormsModule, MatIconModule, MatLabel, MatFormField, MatInputModule, MatSelectModule, MatButtonModule],
+  imports: [MatExpansionModule, ReactiveFormsModule, MatIconModule, MatLabel, MatFormField, MatInputModule, MatSelectModule, MatButtonModule, CommonModule],
   changeDetection: ChangeDetectionStrategy.OnPush,
   templateUrl: './catch-filters.html',
   styleUrl: './catch-filters.scss',
 })
 export class CatchFilters {
-  readonly panelOpenState = signal(false);
-  filterForm: any;
-  speciesList: Species[] = [];
-  yearList: Year[] = [];
-  waterBodyList: WaterBody[] = [];
+  @Output() filterChange = new EventEmitter<CatchFilter>();
 
-  constructor(private fb: FormBuilder) { }
+  readonly panelOpenState = signal(false);
+  filterForm!: FormGroup;
+  speciesList = signal<string[]>([]);
+  yearList = signal<number[]>([]);
+  waterBodyList = signal<string[]>([]);
+
+  constructor(
+    private fb: FormBuilder,
+    private catchService: CatchListsService,
+    private router: Router,
+    private activatedRoute: ActivatedRoute
+  ) {}
 
   ngOnInit() {
-    this.speciesList =  [
-      { label: 'Trout' },
-      { label: 'Bass' },
-      { label: 'Pike' },
-      { label: 'Catfish' },
-      { label: 'Carp' },
-    ];
-    this.yearList = [
-      { label: '2020' },
-      { label: '2021' },
-      { label: '2022' },
-      { label: '2023' },
-      { label: '2024' },
-      { label: '2025' },  
-    ];
-    this.waterBodyList = [
-      { label: 'Best Lake' },
-      { label: 'Lake Parsippany' },
-      { label: 'Little Falls Township' },
-      { label: 'South Mountain Fairy Trail' },
-    ];
-    
-    // Define the form model
+    // Initialize form
     this.filterForm = this.fb.group({
-      species: ['',],
-      year: ['',],
-      waterBody: ['',],
-      conditions: ['',],
+      species: [''],
+      year: [''],
+      waterBody: [''],
+      conditions: [''],
+    });
+
+    // Load filter options from API
+    this.catchService.getSpeciesList().subscribe(
+      species => this.speciesList.set(species)
+    );
+
+    this.catchService.getYears().subscribe(
+      years => this.yearList.set(years)
+    );
+
+    this.catchService.getWaterBodies().subscribe(
+      waterBodies => this.waterBodyList.set(waterBodies)
+    );
+
+    // Load filters from URL query params
+    this.activatedRoute.queryParams.subscribe(params => {
+      this.filterForm.patchValue({
+        species: params['species'] || '',
+        year: params['year'] || '',
+        waterBody: params['waterBody'] || '',
+        conditions: params['conditions'] || '',
+      }, { emitEvent: false });
+
+      // Apply filters from URL on init
+      if (Object.keys(params).length > 0) {
+        const filter = this.buildFilterFromParams(params);
+        this.filterChange.emit(filter);
+      }
     });
   }
 
-  onSubmit() {  
-    console.log('Form Submitted!', this.filterForm.value);
+  onSubmit() {
+    const formValue = this.filterForm.value;
+    const filter = this.buildFilterFromForm(formValue);
+    
+    // Update URL with filter params
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: this.filterToQueryParams(filter),
+      queryParamsHandling: 'merge',
+    });
+
+    this.filterChange.emit(filter);
   }
 
+  clearFilters() {
+    this.filterForm.reset();
+    
+    // Clear URL params
+    this.router.navigate([], {
+      relativeTo: this.activatedRoute,
+      queryParams: { species: null, year: null, waterBody: null, conditions: null },
+      queryParamsHandling: 'merge',
+    });
+
+    this.filterChange.emit({});
+  }
+
+  private buildFilterFromForm(formValue: any): CatchFilter {
+    const filter: CatchFilter = {};
+
+    if (formValue.species) filter.species = formValue.species;
+    if (formValue.year) filter.year = parseInt(formValue.year);
+    if (formValue.waterBody) filter.water_body = formValue.waterBody;
+    if (formValue.conditions) filter.conditions = formValue.conditions;
+
+    return filter;
+  }
+
+  private buildFilterFromParams(params: any): CatchFilter {
+    const filter: CatchFilter = {};
+
+    if (params['species']) filter.species = params['species'];
+    if (params['year']) filter.year = parseInt(params['year']);
+    if (params['waterBody']) filter.water_body = params['waterBody'];
+    if (params['conditions']) filter.conditions = params['conditions'];
+
+    return filter;
+  }
+
+  private filterToQueryParams(filter: CatchFilter): any {
+    return {
+      species: filter.species || null,
+      year: filter.year || null,
+      waterBody: filter.water_body || null,
+      conditions: filter.conditions || null,
+    };
+  }
 }
