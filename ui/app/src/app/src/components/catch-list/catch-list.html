@@ -4,16 +4,16 @@
         @for(item of data$ | async; track item) {
             <mat-card class="catch-card">
                 <img mat-card-image src="{{item.photo_url}}"  alt="{{item.notes}}" class="card-image">
-                    <mat-card-content>
-                        <h3>{{item.species}}</h3>
-                        @if(item.weight_lbs !== 'NaN') {
-                            <p>{{item.weight_lbs}} lbs</p>
+                    <mat-card-content>     
+                        <h2>{{item.species}}</h2>                   
+                        @if (item.date_caught) {
+                            <p>Date Caught: {{item.date_caught | date}}</p>
                         }
-                        @if(item.length_inches !== 'NaN') {
-                            <p>{{item.length_inches}} inches</p>
+                            @if (item.water_body) {
+                                <p>Water Body: {{item.water_body}}</p>
                         }
-                        @if(item.notes !== 'NaN') {
-                            <p>{{item.notes}}</p>
+                            @if (item.lure) {
+                            <p>Lure: {{item.lure}}</p>
                         }
                     </mat-card-content>
             </mat-card>

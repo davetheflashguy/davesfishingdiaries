@@ -1,48 +1,60 @@
 <section class="catch-filters">
-<mat-accordion>
-  <mat-expansion-panel hideToggle>
-    <mat-expansion-panel-header>
-      <mat-panel-title> <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter"></mat-icon><span class="filter-title">Filter Recent Catches</span></mat-panel-title>
-    </mat-expansion-panel-header>
-        <form [formGroup]="filterForm" (ngSubmit)="onSubmit()"  class="inline-form-container">
-            <mat-form-field appearance="outline">
-                <mat-label>Species</mat-label>
-                <mat-select formControlName="species">
-                    <mat-option value="">All Species</mat-option>
-                    @for (species of speciesList(); track species) {
-                        <mat-option [value]="species">{{species}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+    <div class="filters-container">
+        <mat-accordion>
+        <mat-expansion-panel hideToggle>
+            <mat-expansion-panel-header>
+            <mat-panel-title> 
+                <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="filter">
 
-            <mat-form-field appearance="outline">
-                <mat-label>Year</mat-label>
-                <mat-select formControlName="year">
-                    <mat-option value="">All Years</mat-option>
-                    @for (year of yearList(); track year) {
-                        <mat-option [value]="year">{{year}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+                </mat-icon>
+                <span class="filter-title">Filter Recent Catches</span>
+            </mat-panel-title>
+            <mat-panel-description>
+                <div class="filter-description">
+                    Displaying {{ totalCount }} {{ totalCount === 1 ? 'catch' : 'catches' }}
+                </div>
+            </mat-panel-description>
+            </mat-expansion-panel-header>
+                <form [formGroup]="filterForm" (ngSubmit)="onSubmit()"  class="inline-form-container">
+                    <mat-form-field appearance="outline">
+                        <mat-label>Species</mat-label>
+                        <mat-select formControlName="species">
+                            <mat-option value="">All Species</mat-option>
+                            @for (species of speciesList(); track species) {
+                                <mat-option [value]="species">{{species}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
 
-            <mat-form-field appearance="outline">
-                <mat-label>Water Body</mat-label>
-                <mat-select formControlName="waterBody">
-                    <mat-option value="">All Water Bodies</mat-option>
-                    @for (waterBody of waterBodyList(); track waterBody) {
-                        <mat-option [value]="waterBody">{{waterBody}}</mat-option>
-                    }
-                </mat-select>
-            </mat-form-field>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Year</mat-label>
+                        <mat-select formControlName="year">
+                            <mat-option value="">All Years</mat-option>
+                            @for (year of yearList(); track year) {
+                                <mat-option [value]="year">{{year}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
 
-            <button mat-raised-button color="primary" type="submit" style="margin-top: -20px;">
-                Filter Catches
-            </button>
-            <button mat-stroked-button type="button" (click)="clearFilters()" style="margin-top: -20px; margin-left: 8px;">
-                Clear Filters
-            </button>
-        </form>
-    </mat-expansion-panel>
-</mat-accordion>
+                    <mat-form-field appearance="outline">
+                        <mat-label>Water Body</mat-label>
+                        <mat-select formControlName="waterBody">
+                            <mat-option value="">All Water Bodies</mat-option>
+                            @for (waterBody of waterBodyList(); track waterBody) {
+                                <mat-option [value]="waterBody">{{waterBody}}</mat-option>
+                            }
+                        </mat-select>
+                    </mat-form-field>
+
+                    <button mat-raised-button color="primary" type="submit" style="margin-top: -20px;">
+                        Filter Catches
+                    </button>
+                    <button mat-stroked-button type="button" (click)="clearFilters()" style="margin-top: -20px; margin-left: 8px;">
+                        Clear Filters
+                    </button>
+                </form>
+            </mat-expansion-panel>
+        </mat-accordion>
+</div>
 </section>
 

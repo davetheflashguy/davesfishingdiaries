@@ -1,2 +1,2 @@
-<app-catch-filters (filterChange)="onFilterChange($event)"></app-catch-filters>
-<app-catch-list [filters]="currentFilter()"></app-catch-list>
+<app-catch-filters (filterChange)="onFilterChange($event)" [totalCount]="totalCatchCount()"></app-catch-filters>
+<app-catch-list [filters]="currentFilter()" (countChange)="onCountChange($event)"></app-catch-list>

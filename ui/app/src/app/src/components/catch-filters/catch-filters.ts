@@ -1,4 +1,4 @@
-import { ChangeDetectionStrategy, Component, Output, EventEmitter, signal} from '@angular/core';
+import { ChangeDetectionStrategy, Component, Output, EventEmitter, Input, signal} from '@angular/core';
 import { ReactiveFormsModule, FormBuilder, Validators, FormGroup } from '@angular/forms';
 import { MatExpansionModule } from '@angular/material/expansion';
 import { MatIconModule } from '@angular/material/icon';
@@ -19,6 +19,7 @@ import { CatchListsService, CatchFilter } from '../catch-list/catch-lists.servic
 })
 export class CatchFilters {
   @Output() filterChange = new EventEmitter<CatchFilter>();
+  @Input() totalCount: number = 0;
 
   readonly panelOpenState = signal(false);
   filterForm!: FormGroup;

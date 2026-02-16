@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core';
+import { Component, Input, Output, EventEmitter } from '@angular/core';
 import { CatchListsService, CatchFilter } from './catch-lists.service';
 import { Observable } from 'rxjs/internal/Observable';
 import { CommonModule } from '@angular/common';
@@ -16,10 +16,10 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 })
 export class CatchList {
   @Input() set filters(filter: CatchFilter) {
-    if (filter) {
-      this.loadCatches(filter);
-    }
+    this.loadCatches(filter);
   }
+  
+  @Output() countChange = new EventEmitter<number>();
   
   loading = false;
   items: any[] = [];
@@ -28,10 +28,6 @@ export class CatchList {
 
   constructor(private svc: CatchListsService) {}
 
-  ngOnInit() {
-    this.loadCatches({});
-  }
-
   loadCatches(filter: CatchFilter) {
     this.loading = true;
     this.currentFilter = filter;
@@ -39,6 +35,7 @@ export class CatchList {
     this.data$.subscribe({
       next: (data) => {
         this.items = data;
+        this.countChange.emit(data.length);
         this.loading = false;
       },
       error: (err) => {

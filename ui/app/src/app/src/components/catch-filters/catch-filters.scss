@@ -1,8 +1,14 @@
 .catch-filters {
     max-width: 1600px;
     margin: 0 auto;
-    padding-left: 22px;
-    padding-right: 22px;
+    .filters-container {
+       padding-left: 22px;
+         padding-right: 22px;
+    }
+    .filter-description  {
+        margin-left: auto;
+    }
+
     .inline-form-container {
         display: flex;
         gap: 1rem; /* Adjust the space between elements as needed */

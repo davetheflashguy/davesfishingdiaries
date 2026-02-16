@@ -12,8 +12,13 @@ import { CatchFilter } from '../catch-list/catch-lists.service';
 })
 export class Catches {
   currentFilter = signal<CatchFilter>({});
+  totalCatchCount = signal<number>(0);
 
   onFilterChange(filter: CatchFilter) {
     this.currentFilter.set(filter);
+  }
+
+  onCountChange(count: number) {
+    this.totalCatchCount.set(count);
   }
 }
