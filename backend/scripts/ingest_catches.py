@@ -17,6 +17,15 @@ engine = create_engine(DATABASE_URL)
 
 EXCEL_PATH = "/data/catches.xlsx"
 
+def add_water_body_column():
+    """Ensure water_body column exists"""
+    with engine.begin() as conn:
+        conn.execute(text("""
+            ALTER TABLE catches 
+            ADD COLUMN IF NOT EXISTS water_body TEXT;
+        """))
+    print("✅ water_body column ensured.")
+
 def ingest():
     df = pd.read_excel(EXCEL_PATH)
 
@@ -33,6 +42,7 @@ def ingest():
             date_caught,
             time_of_day,
             lure,
+            water_body,
             weather,
             notes,
             photo_url
@@ -46,11 +56,12 @@ def ingest():
             :date_caught,
             :time_of_day,
             :lure,
+            :water_body,
             :weather,
             :notes,
             :photo_url
         )
-        ON CONFLICT DO NOTHING
+        ON CONFLICT (species, date_caught, time_of_day, lure) DO NOTHING
     """)
 
     with engine.begin() as conn:
@@ -64,6 +75,7 @@ def ingest():
                 "date_caught": row["date_caught"],
                 "time_of_day": row["time_of_day"],
                 "lure": row["lure"],
+                "water_body": row.get("water_body"),
                 "weather": row["weather"],
                 "notes": row["notes"],
                 "photo_url": row["photo_url"]
@@ -72,4 +84,5 @@ def ingest():
     print("🎣 Catch data ingestion complete.")
 
 if __name__ == "__main__":
+    add_water_body_column()
     ingest()

@@ -3,19 +3,24 @@
     <div class="card-container">
         @for(item of data$ | async; track item) {
             <mat-card class="catch-card">
-                <img mat-card-image src="{{item.photo_url}}"  alt="{{item.notes}}" class="card-image">
-                    <mat-card-content>     
-                        <h2>{{item.species}}</h2>                   
-                        @if (item.date_caught) {
-                            <p>Date Caught: {{item.date_caught | date}}</p>
-                        }
-                            @if (item.water_body) {
-                                <p>Water Body: {{item.water_body}}</p>
-                        }
-                            @if (item.lure) {
-                            <p>Lure: {{item.lure}}</p>
-                        }
-                    </mat-card-content>
+                <div class="image-container">
+                    <img mat-card-image src="{{item.photo_url}}"  alt="{{item.notes}}" class="card-image">
+                    <button mat-icon-button class="zoom-button" (click)="openImageDialogById(item.id, item.photo_url, item.species, item.water_body)">
+                        <mat-icon>zoom_in</mat-icon>
+                    </button>
+                </div>
+                <mat-card-content>     
+                    <h2>{{item.species}}</h2>                   
+                    @if (item.date_caught) {
+                        <p>Date Caught: {{item.date_caught | date}}</p>
+                    }
+                        @if (item.water_body) {
+                            <p>Water Body: {{item.water_body}}</p>
+                    }
+                        @if (item.lure) {
+                        <p>Lure: {{item.lure}}</p>
+                    }
+                </mat-card-content>
             </mat-card>
         }
     </div>

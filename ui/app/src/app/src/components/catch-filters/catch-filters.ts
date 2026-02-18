@@ -26,6 +26,7 @@ export class CatchFilters {
   speciesList = signal<string[]>([]);
   yearList = signal<number[]>([]);
   waterBodyList = signal<string[]>([]);
+  private previousFilter: string = '';
 
   constructor(
     private fb: FormBuilder,
@@ -58,16 +59,23 @@ export class CatchFilters {
 
     // Load filters from URL query params
     this.activatedRoute.queryParams.subscribe(params => {
+      // Ignore catchId parameter - it's for dialog deep linking, not filtering
+      const { catchId, ...filterParams } = params;
+      
       this.filterForm.patchValue({
-        species: params['species'] || '',
-        year: params['year'] || '',
-        waterBody: params['waterBody'] || '',
-        conditions: params['conditions'] || '',
+        species: filterParams['species'] || '',
+        year: filterParams['year'] || '',
+        waterBody: filterParams['waterBody'] || '',
+        conditions: filterParams['conditions'] || '',
       }, { emitEvent: false });
 
-      // Apply filters from URL on init
-      if (Object.keys(params).length > 0) {
-        const filter = this.buildFilterFromParams(params);
+      // Build filter and check if it changed
+      const filter = this.buildFilterFromParams(filterParams);
+      const filterString = JSON.stringify(filter);
+      
+      // Only emit if filter actually changed
+      if (filterString !== this.previousFilter) {
+        this.previousFilter = filterString;
         this.filterChange.emit(filter);
       }
     });

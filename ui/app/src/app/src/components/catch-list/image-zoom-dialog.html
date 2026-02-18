@@ -1,0 +1,15 @@
+<div class="zoom-container">
+  <mat-toolbar>
+    <span class="fish-info">
+      <h2>{{ data.species }}</h2>
+      <h3> - {{ data.waterBody }}</h3>
+    </span>
+    <span class="spacer"></span>
+    <button mat-icon-button (click)="dialogRef.close()">
+      <mat-icon>close</mat-icon>
+    </button>
+  </mat-toolbar>
+  <div class="zoom-dialog">
+    <img [src]="data.imageUrl" [alt]="data.species" class="zoomed-image">
+  </div>
+</div>

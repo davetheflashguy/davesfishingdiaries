@@ -13,6 +13,7 @@ class AboutMeOut(BaseModel):
         from_attributes = True
     
 class CatchOut(BaseModel):
+    id: int
     species: str | None
     length_inches: float | None
     weight_lbs: str | None  # String to handle formats like '1lb 2oz', 'NaN'
@@ -21,6 +22,7 @@ class CatchOut(BaseModel):
     date_caught: date | None
     time_of_day: time | None
     lure: str | None
+    water_body: str | None
     weather: str | None
     notes: str | None
     photo_url: str | None

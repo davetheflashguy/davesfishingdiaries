@@ -22,6 +22,7 @@ class Catches(Base):
     date_caught = Column(Date)
     time_of_day = Column(Time)
     lure = Column(String)
+    water_body = Column(String)
     weather = Column(String)
     notes = Column(Text)
     photo_url = Column(String)
