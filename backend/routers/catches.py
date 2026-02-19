@@ -25,8 +25,10 @@ def get_catches(
     year: Optional[int] = Query(None),
     water_body: Optional[str] = Query(None),
     conditions: Optional[str] = Query(None),
+    limit: Optional[int] = Query(20, ge=1, le=100),
+    offset: Optional[int] = Query(0, ge=0),
 ):
-    """Get catches with optional filters"""
+    """Get catches with optional filters and pagination"""
     query = db.query(Catches)
     
     if species:
@@ -44,7 +46,7 @@ def get_catches(
     if conditions:
         query = query.filter(Catches.weather == conditions)
     
-    return query.order_by(Catches.date_caught.desc()).all()
+    return query.order_by(Catches.date_caught.desc()).limit(limit).offset(offset).all()
 
 
 @router.get("/species", response_model=list[str])

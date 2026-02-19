@@ -15,13 +15,17 @@ export class CatchListsService {
 
   constructor(private http: HttpClient) {}
 
-  getCatches(filters: CatchFilter = {}): Observable<any[]> {
+  getCatches(filters: CatchFilter = {}, limit: number = 20, offset: number = 0): Observable<any[]> {
     let params = new HttpParams();
     
     if (filters.species) params = params.set('species', filters.species);
     if (filters.year) params = params.set('year', filters.year.toString());
     if (filters.water_body) params = params.set('water_body', filters.water_body);
     if (filters.conditions) params = params.set('conditions', filters.conditions);
+    
+    // Add pagination params
+    params = params.set('limit', limit.toString());
+    params = params.set('offset', offset.toString());
 
     return this.http.get<any[]>(this.baseUrl, { params });
   }
