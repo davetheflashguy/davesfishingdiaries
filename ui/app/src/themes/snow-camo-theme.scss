@@ -1,0 +1,127 @@
+@use '@angular/material' as mat;
+
+// Snow Camo Custom Color Palettes
+// Primary: Cool gray-blue tones (light snow colors)
+$_primary: (
+  0: #000000,
+  10: #1a1c1e,
+  20: #2f3133,
+  25: #3a3c3f,
+  30: #46484a,
+  35: #525456,
+  40: #5e6062,
+  50: #77797b,
+  60: #909395,
+  70: #aaadaf,
+  80: #c5c8ca,
+  90: #e1e3e6,
+  95: #eff1f4,
+  98: #f8f9fb,
+  99: #fcfcfd,
+  100: #ffffff,
+);
+
+// Tertiary: Ice blue accents
+$_tertiary: (
+  0: #000000,
+  10: #001a2c,
+  20: #002f47,
+  25: #003a57,
+  30: #004567,
+  35: #005178,
+  40: #005d89,
+  50: #0076ac,
+  60: #3e91c6,
+  70: #60ace2,
+  80: #8ec7ff,
+  90: #cde5ff,
+  95: #e7f2ff,
+  98: #f6faff,
+  99: #fcfdff,
+  100: #ffffff,
+);
+
+// Neutral: White and very light grays for surfaces
+$_neutral: (
+  0: #000000,
+  4: #0c0e0f,
+  6: #111314,
+  10: #1a1c1e,
+  12: #1f2123,
+  17: #292b2d,
+  20: #2f3133,
+  22: #343638,
+  24: #393b3d,
+  25: #3b3d3f,
+  30: #46484a,
+  35: #525456,
+  40: #5e6062,
+  50: #77797b,
+  60: #909395,
+  70: #aaadaf,
+  80: #c5c8ca,
+  87: #d8dadd,
+  90: #e1e3e6,
+  92: #e7e9ec,
+  94: #eceff1,
+  95: #eff1f4,
+  96: #f2f4f7,
+  98: #f8f9fb,
+  99: #fcfcfd,
+  100: #ffffff,
+);
+
+$_neutral-variant: (
+  0: #000000,
+  10: #171c21,
+  20: #2c3137,
+  25: #373c42,
+  30: #42474d,
+  35: #4e5359,
+  40: #5a5f65,
+  50: #73787e,
+  60: #8c9298,
+  70: #a7acb2,
+  80: #c2c7cd,
+  90: #dee3e9,
+  95: #ecf1f7,
+  98: #f6f9ff,
+  99: #fafcff,
+  100: #ffffff,
+);
+
+$_error: (
+  0: #000000,
+  10: #410002,
+  20: #690005,
+  25: #7e0007,
+  30: #93000a,
+  35: #a80710,
+  40: #ba1a1a,
+  50: #de3730,
+  60: #ff5449,
+  70: #ff897d,
+  80: #ffb4ab,
+  90: #ffdad6,
+  95: #ffedea,
+  98: #fff8f7,
+  99: #fffbff,
+  100: #ffffff,
+);
+
+// Export M3 palette map
+$primary-palette: (
+  primary: $_primary,
+  tertiary: $_tertiary,
+  neutral: $_neutral,
+  neutral-variant: $_neutral-variant,
+  error: $_error,
+);
+
+$tertiary-palette: (
+  primary: $_tertiary,
+  tertiary: $_primary,
+  neutral: $_neutral,
+  neutral-variant: $_neutral-variant,
+  error: $_error,
+);

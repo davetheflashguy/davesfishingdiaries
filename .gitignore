@@ -1,3 +1,33 @@
-.env
+# Environment files (keep .env for local dev, ignore production secrets)
+.env.production
+.env.local
 
+# Python
+__pycache__/
+*.py[cod]
+backend/__pycache__/
+backend/routers/__pycache__/
+backend/scripts/__pycache__/
+
+# Data files (personal catch data - DO NOT COMMIT)
+data/*.xlsx
+data/*.xls
+data/*.csv
+
+# Database volumes
+postgres_data/
+
+# Node
 ui/app/node_modules/
+ui/app/dist/
+ui/app/.angular/
+
+# Logs
+*.log
+
+# IDE
+.vscode/
+.idea/
+
+#DigitalOcean
+digital_ocean.txt

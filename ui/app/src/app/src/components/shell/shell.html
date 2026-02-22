@@ -1,19 +1,13 @@
 <div class="toolbar-wrapper">
-  <mat-toolbar color="primary">
+  <mat-toolbar>
     <button matIconButton [matMenuTriggerFor]="appMenu">
       <mat-icon>menu</mat-icon>
     </button>
         <mat-menu #appMenu="matMenu">
-      <button mat-menu-item routerLink="/">Home</button>
-       <button mat-menu-item routerLink="/getting-started">Get Started Fishing</button>
+      <button mat-menu-item routerLink="/">Catches</button>
+       <button mat-menu-item routerLink="/getting-started">Fishing For Beginners</button>
     </mat-menu>
     <span>DavesFishingDiaries</span>
     <span class="spacer"></span>
-    <button matIconButton>
-      <mat-icon>search</mat-icon>
-    </button>
-    <button matIconButton>
-      <mat-icon>share</mat-icon>
-    </button>
   </mat-toolbar>
 </div>
