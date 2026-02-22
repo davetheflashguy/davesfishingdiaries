@@ -11,7 +11,7 @@ export interface CatchFilter {
 
 @Injectable({ providedIn: 'root' })
 export class CatchListsService {
-  private baseUrl = 'http://localhost:8000/catches';
+  private baseUrl = '/api/catches';
 
   constructor(private http: HttpClient) {}
 
