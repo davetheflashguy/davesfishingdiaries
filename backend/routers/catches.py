@@ -18,7 +18,7 @@ def get_db():
         db.close()
 
 
-@router.get("/", response_model=list[CatchOut])
+@router.get("", response_model=list[CatchOut])
 def get_catches(
     db: Session = Depends(get_db),
     species: Optional[str] = Query(None),
